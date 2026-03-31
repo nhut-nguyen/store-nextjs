@@ -250,8 +250,36 @@
 
       <section class="card">
         <h2>3. Chuẩn bị source code trên Windows</h2>
+        <h3>3.1. Clone source code từ GitHub</h3>
+        <p>Nếu lấy source trực tiếp từ repository, chạy lần lượt:</p>
+
+        <pre><code>git clone https://github.com/nhut-nguyen/store-nextjs.git
+cd store-nextjs</code></pre>
+
+        <p>
+          Sau khi clone xong, toàn bộ lệnh phía dưới trong tài liệu này cần được chạy bên trong thư mục
+          <code>store-nextjs</code>.
+        </p>
+
+        <div class="note">
+          <strong>Khuyến nghị:</strong> dùng <code>git clone</code> thay vì copy tay thư mục để tránh thiếu file ẩn
+          như <code>.gitignore</code>, <code>.env.example</code> hoặc sai quyền truy cập file.
+        </div>
+
+        <h3>3.2. Kiểm tra source code sau khi clone</h3>
+        <p>Có thể kiểm tra nhanh branch và trạng thái source:</p>
+
+        <pre><code>git branch --show-current
+git status</code></pre>
+
+        <p>Kết quả mong đợi:</p>
+        <ul>
+          <li>đang ở nhánh <code>main</code></li>
+          <li>working tree sạch trước khi bắt đầu cấu hình môi trường</li>
+        </ul>
+
+        <h3>3.3. Kiểm tra Node.js và npm</h3>
         <ol>
-          <li>Copy toàn bộ source code dự án sang máy Windows hoặc clone từ repository.</li>
           <li>Mở thư mục dự án bằng PowerShell hoặc Windows Terminal.</li>
           <li>Kiểm tra Node.js và npm:</li>
         </ol>
