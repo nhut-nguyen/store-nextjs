@@ -340,7 +340,34 @@ NEXT_PUBLIC_APP_NAME=GearHub</code></pre>
 
       <section class="card">
         <h2>7. Khởi tạo database cho project</h2>
-        <p>Dự án có sẵn script tạo lại schema và seed dữ liệu:</p>
+        <p>Dự án hiện có 2 cách khởi tạo database trên Windows:</p>
+
+        <h3>7.1. Cách 1: Chạy script tổng hợp <code>/database/PRO_STORE_NEXTJS.sql</code></h3>
+        <p>
+          Đây là cách phù hợp khi bạn muốn khởi tạo database trực tiếp bằng SQL Server Management Studio
+          hoặc đưa script cho DBA chạy thủ công.
+        </p>
+
+        <ol>
+          <li>Mở <strong>SQL Server Management Studio</strong>.</li>
+          <li>Kết nối tới SQL Server chứa database đích.</li>
+          <li>Mở file <code>database/PRO_STORE_NEXTJS.sql</code>.</li>
+          <li>Kiểm tra lại database đích là <code>PRO_STORE_NEXTJS</code>.</li>
+          <li>Nhấn <strong>Execute</strong> để chạy toàn bộ script.</li>
+        </ol>
+
+        <div class="note">
+          <strong>Lưu ý:</strong> file <code>PRO_STORE_NEXTJS.sql</code> là script SQL tổng hợp, đã bao gồm cấu trúc
+          bảng, chỉ mục, ràng buộc và dữ liệu khởi tạo theo trạng thái export hiện tại.
+        </div>
+
+        <div class="warn">
+          <strong>Lưu ý kỹ thuật:</strong> file này có thể được lưu theo định dạng Unicode/UTF-16. Nên mở bằng
+          SSMS, Azure Data Studio hoặc editor hỗ trợ Unicode để tránh lỗi font hoặc lỗi ký tự tiếng Việt.
+        </div>
+
+        <h3>7.2. Cách 2: Chạy script tự động của dự án</h3>
+        <p>Dự án cũng có sẵn script Node.js để tạo lại schema và seed dữ liệu:</p>
 
         <pre><code>npm run db:init</code></pre>
 
@@ -356,6 +383,30 @@ NEXT_PUBLIC_APP_NAME=GearHub</code></pre>
           <strong>Cảnh báo:</strong> <code>npm run db:init</code> là lệnh reset dữ liệu theo seed. Không dùng trên
           môi trường đã có dữ liệu thật nếu bạn chưa backup.
         </div>
+
+        <h3>7.3. Nên chọn cách nào</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Tình huống</th>
+              <th>Cách khuyến nghị</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Muốn DBA hoặc quản trị SQL chạy thủ công</td>
+              <td>Dùng <code>database/PRO_STORE_NEXTJS.sql</code></td>
+            </tr>
+            <tr>
+              <td>Muốn dev tự dựng nhanh database từ source code</td>
+              <td>Dùng <code>npm run db:init</code></td>
+            </tr>
+            <tr>
+              <td>Muốn đồng bộ đúng với flow script của project</td>
+              <td>Ưu tiên <code>npm run db:init</code></td>
+            </tr>
+          </tbody>
+        </table>
       </section>
 
       <section class="card">

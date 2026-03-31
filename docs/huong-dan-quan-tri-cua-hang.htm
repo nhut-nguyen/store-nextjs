@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hướng dẫn sử dụng cho quản trị cửa hàng</title>
+    <style>
+      :root {
+        --bg: #f6f8fb;
+        --surface: rgba(255, 255, 255, 0.92);
+        --text: #1f2937;
+        --muted: #6b7280;
+        --line: #d9e2ec;
+        --orange: #ea580c;
+        --orange-soft: #fff1e8;
+        --teal: #0f766e;
+        --ink: #0f172a;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(180deg, #f8fafc 0%, #eef6f4 100%);
+        color: var(--text);
+        line-height: 1.65;
+      }
+
+      .page {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 36px 20px 64px;
+      }
+
+      .hero,
+      .card {
+        background: var(--surface);
+        border: 1px solid rgba(217, 226, 236, 0.9);
+        border-radius: 22px;
+        box-shadow: 0 20px 50px rgba(15, 23, 42, 0.06);
+        backdrop-filter: blur(12px);
+      }
+
+      .hero {
+        padding: 32px;
+        margin-bottom: 22px;
+      }
+
+      .eyebrow {
+        display: inline-block;
+        margin: 0 0 12px;
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: var(--orange-soft);
+        color: var(--orange);
+        font-weight: 700;
+        font-size: 13px;
+      }
+
+      .card {
+        padding: 24px;
+        margin-bottom: 18px;
+      }
+
+      h1,
+      h2,
+      h3 {
+        margin: 0 0 12px;
+        line-height: 1.25;
+      }
+
+      h1 {
+        font-size: 38px;
+      }
+
+      h2 {
+        margin-top: 20px;
+        font-size: 26px;
+      }
+
+      h3 {
+        margin-top: 16px;
+        font-size: 20px;
+      }
+
+      p,
+      li {
+        font-size: 16px;
+      }
+
+      .muted {
+        color: var(--muted);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 16px;
+      }
+
+      .tip,
+      .warn,
+      .ok {
+        margin: 14px 0;
+        padding: 14px 16px;
+        border-radius: 14px;
+      }
+
+      .tip {
+        background: #ecfeff;
+        border: 1px solid #a5f3fc;
+      }
+
+      .warn {
+        background: #fff7ed;
+        border: 1px solid #fdba74;
+      }
+
+      .ok {
+        background: #ecfdf5;
+        border: 1px solid #86efac;
+      }
+
+      code,
+      pre {
+        font-family: Consolas, "Courier New", monospace;
+      }
+
+      code {
+        background: #eef2ff;
+        color: #312e81;
+        padding: 2px 6px;
+        border-radius: 6px;
+      }
+
+      pre {
+        margin: 12px 0 18px;
+        padding: 16px;
+        border-radius: 16px;
+        background: var(--ink);
+        color: #e5eef9;
+        overflow-x: auto;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+      }
+
+      th,
+      td {
+        text-align: left;
+        vertical-align: top;
+        padding: 12px 10px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      th {
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      ul,
+      ol {
+        margin: 8px 0 16px 22px;
+      }
+
+      .footer {
+        margin-top: 28px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      @media (max-width: 640px) {
+        h1 {
+          font-size: 30px;
+        }
+
+        .hero,
+        .card {
+          padding: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <section class="hero">
+        <p class="eyebrow">Tài liệu sử dụng</p>
+        <h1>Hướng dẫn cho người quản trị cửa hàng</h1>
+        <p class="muted">
+          Tài liệu này dành cho quản trị viên vận hành website bán máy tính, laptop, điện thoại và phụ kiện.
+          Nội dung tập trung vào các thao tác hằng ngày trong khu vực admin: theo dõi hệ thống, quản lý danh mục,
+          sản phẩm, đơn hàng, đánh giá và người dùng.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2>1. Mục đích tài liệu</h2>
+        <ul>
+          <li>Giúp quản trị viên thao tác đúng trong khu vực quản trị.</li>
+          <li>Giảm sai sót khi thêm, sửa, xóa dữ liệu cửa hàng.</li>
+          <li>Chuẩn hóa quy trình vận hành hằng ngày.</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>2. Truy cập khu vực quản trị</h2>
+        <ol>
+          <li>Mở website của hệ thống.</li>
+          <li>Đăng nhập bằng tài khoản quản trị.</li>
+          <li>Truy cập đường dẫn <code>/admin</code>.</li>
+        </ol>
+
+        <div class="tip">
+          <strong>Gợi ý:</strong> nếu bạn đã đăng nhập nhưng không vào được khu vực quản trị, hãy kiểm tra lại vai
+          trò tài khoản có phải <code>admin</code> hay không.
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>3. Cấu trúc menu quản trị</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Khu vực</th>
+              <th>Mục đích</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Dashboard</td>
+              <td>Xem tổng quan sản phẩm, đơn hàng, người dùng và doanh thu.</td>
+            </tr>
+            <tr>
+              <td>Sản phẩm</td>
+              <td>Thêm, sửa, xóa sản phẩm và cập nhật hình ảnh.</td>
+            </tr>
+            <tr>
+              <td>Danh mục</td>
+              <td>Quản lý nhóm sản phẩm hiển thị trên storefront.</td>
+            </tr>
+            <tr>
+              <td>Đơn hàng</td>
+              <td>Xem danh sách đơn, cập nhật trạng thái và chỉnh sửa thông tin đơn.</td>
+            </tr>
+            <tr>
+              <td>Đánh giá</td>
+              <td>Duyệt hoặc xóa đánh giá của khách hàng.</td>
+            </tr>
+            <tr>
+              <td>Người dùng</td>
+              <td>Xem, tạo, sửa, khóa hoặc xóa tài khoản.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="card">
+        <h2>4. Dashboard tổng quan</h2>
+        <p>Dashboard giúp theo dõi nhanh tình hình hoạt động của cửa hàng.</p>
+        <ul>
+          <li>Số lượng sản phẩm hiện có.</li>
+          <li>Số đơn hàng đã phát sinh.</li>
+          <li>Số người dùng trong hệ thống.</li>
+          <li>Tổng doanh thu và biểu đồ trạng thái đơn hàng.</li>
+        </ul>
+
+        <div class="ok">
+          <strong>Nên kiểm tra dashboard mỗi ngày</strong> để phát hiện sớm đơn hàng chờ xử lý, doanh thu bất thường
+          hoặc lỗi dữ liệu.
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>5. Quản lý danh mục</h2>
+        <h3>5.1. Khi nào dùng</h3>
+        <p>Dùng để tạo các nhóm sản phẩm như Laptop, PC, Điện thoại, Màn hình, Phụ kiện.</p>
+
+        <h3>5.2. Thêm danh mục mới</h3>
+        <ol>
+          <li>Vào menu <strong>Danh mục</strong>.</li>
+          <li>Nhấn nút <strong>Thêm danh mục</strong>.</li>
+          <li>Nhập các trường bắt buộc:</li>
+        </ol>
+        <ul>
+          <li>Tên danh mục</li>
+          <li>Slug</li>
+          <li>Icon</li>
+          <li>Thứ tự hiển thị</li>
+          <li>Mô tả</li>
+          <li>Trạng thái hiển thị trên storefront</li>
+        </ul>
+
+        <h3>5.3. Lưu ý quan trọng</h3>
+        <ul>
+          <li><code>Slug</code> không được trùng với danh mục khác.</li>
+          <li>Danh mục tắt hiển thị sẽ không hiện ngoài storefront.</li>
+          <li>Không thể xóa danh mục đang có sản phẩm liên kết.</li>
+        </ul>
+
+        <div class="warn">
+          <strong>Cảnh báo:</strong> trước khi xóa danh mục, cần chuyển sản phẩm sang danh mục khác hoặc xóa sản
+          phẩm liên quan trước.
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>6. Quản lý sản phẩm</h2>
+        <h3>6.1. Chức năng hiện có</h3>
+        <ul>
+          <li>Thêm sản phẩm mới</li>
+          <li>Chỉnh sửa thông tin sản phẩm</li>
+          <li>Xóa sản phẩm</li>
+          <li>Cập nhật hình ảnh và gallery</li>
+        </ul>
+
+        <h3>6.2. Thông tin cần nhập</h3>
+        <ul>
+          <li>Tên sản phẩm</li>
+          <li>Slug</li>
+          <li>Danh mục</li>
+          <li>Thương hiệu</li>
+          <li>Giá bán và giá gốc</li>
+          <li>Tồn kho</li>
+          <li>Ảnh đại diện</li>
+          <li>Gallery ảnh</li>
+          <li>Mô tả ngắn, mô tả chi tiết</li>
+          <li>Thông số kỹ thuật</li>
+          <li>Tags</li>
+          <li>Cờ nổi bật, sale, hàng mới</li>
+        </ul>
+
+        <h3>6.3. Quy trình đề xuất</h3>
+        <ol>
+          <li>Tạo danh mục trước nếu sản phẩm thuộc nhóm mới.</li>
+          <li>Nhập đầy đủ mô tả và thông số kỹ thuật.</li>
+          <li>Kiểm tra đúng giá bán, giá gốc và trạng thái sale.</li>
+          <li>Kiểm tra ảnh đại diện trước khi lưu.</li>
+        </ol>
+
+        <div class="tip">
+          <strong>Gợi ý:</strong> dùng slug ngắn gọn, không dấu, có dấu gạch ngang để đường dẫn sản phẩm dễ đọc hơn.
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>7. Quản lý đơn hàng</h2>
+        <h3>7.1. Mục tiêu</h3>
+        <p>Giúp quản trị viên theo dõi, xác nhận và cập nhật tiến trình xử lý đơn.</p>
+
+        <h3>7.2. Trạng thái đơn hàng đang dùng</h3>
+        <ul>
+          <li><strong>pending</strong>: chờ xử lý</li>
+          <li><strong>confirmed</strong>: đã xác nhận</li>
+          <li><strong>shipping</strong>: đang giao</li>
+          <li><strong>delivered</strong>: hoàn tất</li>
+        </ul>
+
+        <h3>7.3. Quy trình làm việc đề xuất</h3>
+        <ol>
+          <li>Kiểm tra đơn mới ở trạng thái <code>pending</code>.</li>
+          <li>Xác thực thông tin người nhận, số điện thoại, địa chỉ.</li>
+          <li>Chuyển sang <code>confirmed</code> khi đã chốt đơn.</li>
+          <li>Chuyển sang <code>shipping</code> khi đã bàn giao vận chuyển.</li>
+          <li>Chuyển sang <code>delivered</code> khi giao thành công.</li>
+        </ol>
+
+        <div class="warn">
+          <strong>Cảnh báo:</strong> không nên cập nhật trạng thái bỏ qua bước nghiệp vụ nếu chưa xác thực thực tế,
+          vì hệ thống lưu timeline trạng thái đơn hàng.
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>8. Quản lý đánh giá khách hàng</h2>
+        <p>Trang này dùng để kiểm duyệt đánh giá trước khi hiển thị hoặc giữ trên hệ thống.</p>
+        <ul>
+          <li>Xem sản phẩm được đánh giá</li>
+          <li>Xem tên khách hàng, số sao, nội dung đánh giá</li>
+          <li>Duyệt đánh giá</li>
+          <li>Xóa đánh giá không phù hợp</li>
+        </ul>
+
+        <h3>Nguyên tắc xử lý</h3>
+        <ul>
+          <li>Duyệt các đánh giá đúng nội dung, đúng sản phẩm, không vi phạm.</li>
+          <li>Xóa đánh giá spam, xúc phạm, sai nội dung hoặc không liên quan.</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>9. Quản lý người dùng</h2>
+        <h3>9.1. Chức năng hiện có</h3>
+        <ul>
+          <li>Xem danh sách user</li>
+          <li>Thêm user mới</li>
+          <li>Chỉnh sửa vai trò và trạng thái</li>
+          <li>Xóa user</li>
+        </ul>
+
+        <h3>9.2. Trạng thái tài khoản</h3>
+        <ul>
+          <li><code>active</code>: tài khoản hoạt động bình thường</li>
+          <li><code>locked</code>: tài khoản bị khóa</li>
+        </ul>
+
+        <h3>9.3. Khi nào nên khóa tài khoản</h3>
+        <ul>
+          <li>Tài khoản có dấu hiệu thao tác bất thường</li>
+          <li>Tài khoản vi phạm quy định nội bộ</li>
+          <li>Tài khoản cần tạm dừng để kiểm tra</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>10. Quy trình vận hành hằng ngày đề xuất</h2>
+        <ol>
+          <li>Đăng nhập và kiểm tra Dashboard.</li>
+          <li>Xử lý đơn hàng mới.</li>
+          <li>Kiểm tra sản phẩm sale, tồn kho, hình ảnh hiển thị.</li>
+          <li>Duyệt đánh giá mới nếu có.</li>
+          <li>Kiểm tra người dùng bị khóa hoặc cần hỗ trợ.</li>
+        </ol>
+      </section>
+
+      <section class="card">
+        <h2>11. Các lỗi thường gặp khi thao tác</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Tình huống</th>
+              <th>Nguyên nhân thường gặp</th>
+              <th>Cách xử lý</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Không tạo được danh mục</td>
+              <td>Slug trùng hoặc dữ liệu chưa hợp lệ</td>
+              <td>Kiểm tra lại slug, icon, mô tả và thứ tự hiển thị</td>
+            </tr>
+            <tr>
+              <td>Không xóa được danh mục</td>
+              <td>Danh mục còn sản phẩm</td>
+              <td>Chuyển hoặc xóa sản phẩm liên quan trước</td>
+            </tr>
+            <tr>
+              <td>Không lưu được sản phẩm</td>
+              <td>Thiếu danh mục, ảnh hoặc dữ liệu giá không hợp lệ</td>
+              <td>Kiểm tra lại tất cả trường bắt buộc</td>
+            </tr>
+            <tr>
+              <td>Không cập nhật được đơn hàng</td>
+              <td>Dữ liệu gửi lên thiếu hoặc sai trạng thái</td>
+              <td>Kiểm tra đầy đủ thông tin đơn trước khi lưu</td>
+            </tr>
+            <tr>
+              <td>Không thấy dữ liệu ngoài storefront</td>
+              <td>Danh mục bị ẩn hoặc sản phẩm chưa đúng điều kiện hiển thị</td>
+              <td>Kiểm tra trạng thái danh mục và dữ liệu sản phẩm</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="card">
+        <h2>12. Quy tắc thao tác an toàn</h2>
+        <ul>
+          <li>Không xóa dữ liệu nếu chưa xác nhận ảnh hưởng nghiệp vụ.</li>
+          <li>Nên chỉnh sửa thông tin thay vì xóa khi dữ liệu còn liên quan tới đơn hàng.</li>
+          <li>Kiểm tra lại giá và tồn kho trước khi cập nhật sản phẩm sale.</li>
+          <li>Không cấp quyền <code>admin</code> cho tài khoản không cần thiết.</li>
+          <li>Nên đăng xuất sau khi thao tác xong trên máy dùng chung.</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>13. Tóm tắt thao tác nhanh</h2>
+        <div class="grid">
+          <div>
+            <h3>Danh mục</h3>
+            <p>Tạo nhóm sản phẩm, sắp xếp hiển thị và bật/tắt storefront.</p>
+          </div>
+          <div>
+            <h3>Sản phẩm</h3>
+            <p>Thêm hàng mới, cập nhật giá, ảnh, mô tả và cờ sale.</p>
+          </div>
+          <div>
+            <h3>Đơn hàng</h3>
+            <p>Theo dõi đơn, xác nhận xử lý và cập nhật giao hàng.</p>
+          </div>
+          <div>
+            <h3>Đánh giá và User</h3>
+            <p>Duyệt nội dung khách hàng và kiểm soát tài khoản hệ thống.</p>
+          </div>
+        </div>
+      </section>
+
+      <p class="footer">
+        File này được tạo để hỗ trợ người quản trị cửa hàng sử dụng khu vực admin của dự án GearHub Store.
+      </p>
+    </main>
+  </body>
+</html>
