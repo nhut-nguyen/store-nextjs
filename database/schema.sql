@@ -1,0 +1,115 @@
+CREATE TABLE Categories (
+  Id VARCHAR(50) PRIMARY KEY,
+  Name NVARCHAR(255) NOT NULL,
+  Slug VARCHAR(255) NOT NULL UNIQUE,
+  Description NVARCHAR(500) NOT NULL,
+  Icon VARCHAR(50) NOT NULL,
+  IsActive BIT NOT NULL DEFAULT 1,
+  SortOrder INT NOT NULL DEFAULT 0,
+  CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
+  UpdatedAt DATETIME NOT NULL DEFAULT GETDATE(),
+  CONSTRAINT CK_Categories_Name_NotEmpty CHECK (LTRIM(RTRIM(Name)) <> ''),
+  CONSTRAINT CK_Categories_Slug_NotEmpty CHECK (LTRIM(RTRIM(Slug)) <> ''),
+  CONSTRAINT CK_Categories_Icon_Allowed CHECK (
+    Icon IN ('Laptop', 'MonitorSmartphone', 'Smartphone', 'Monitor', 'Headphones')
+  ),
+  CONSTRAINT CK_Categories_SortOrder_NonNegative CHECK (SortOrder >= 0)
+);
+
+CREATE TRIGGER TR_Categories_SetUpdatedAt
+ON Categories
+INSTEAD OF UPDATE
+AS
+BEGIN
+  SET NOCOUNT ON
+
+  UPDATE C
+  SET
+    Name = I.Name,
+    Slug = I.Slug,
+    Description = I.Description,
+    Icon = I.Icon,
+    IsActive = I.IsActive,
+    SortOrder = I.SortOrder,
+    UpdatedAt = GETDATE()
+  FROM Categories C
+  INNER JOIN inserted I ON C.Id = I.Id
+END
+GO
+
+CREATE TABLE Products (
+  Id VARCHAR(50) PRIMARY KEY,
+  CategoryId VARCHAR(50) NOT NULL,
+  Name NVARCHAR(255) NOT NULL,
+  Slug VARCHAR(255) NOT NULL UNIQUE,
+  Brand NVARCHAR(100) NOT NULL,
+  Price DECIMAL(18, 0) NOT NULL,
+  OriginalPrice DECIMAL(18, 0) NULL,
+  Rating DECIMAL(3, 2) NOT NULL DEFAULT 0,
+  ReviewCount INT NOT NULL DEFAULT 0,
+  Stock INT NOT NULL DEFAULT 0,
+  Image NVARCHAR(500) NOT NULL,
+  GalleryJson NVARCHAR(MAX) NOT NULL DEFAULT N'[]',
+  ShortDescription NVARCHAR(500) NOT NULL,
+  Description NVARCHAR(MAX) NOT NULL,
+  SpecsJson NVARCHAR(MAX) NOT NULL DEFAULT N'{}',
+  TagsJson NVARCHAR(MAX) NOT NULL DEFAULT N'[]',
+  Featured BIT NOT NULL DEFAULT 0,
+  OnSale BIT NOT NULL DEFAULT 0,
+  IsNew BIT NOT NULL DEFAULT 0,
+  FOREIGN KEY (CategoryId) REFERENCES Categories(Id) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+
+CREATE TABLE BlogPosts (
+  Id VARCHAR(50) PRIMARY KEY,
+  Title NVARCHAR(255) NOT NULL,
+  Slug VARCHAR(255) NOT NULL UNIQUE,
+  Excerpt NVARCHAR(1000) NOT NULL,
+  Cover NVARCHAR(500) NOT NULL,
+  Category NVARCHAR(100) NOT NULL,
+  PublishedAt DATE NOT NULL,
+  ReadTime NVARCHAR(50) NOT NULL,
+  ContentJson NVARCHAR(MAX) NOT NULL
+);
+
+CREATE TABLE Users (
+  Id VARCHAR(50) PRIMARY KEY,
+  Name NVARCHAR(255) NOT NULL,
+  Email VARCHAR(255) NOT NULL UNIQUE,
+  Phone VARCHAR(30) NULL,
+  Address NVARCHAR(500) NULL,
+  Role VARCHAR(20) NOT NULL,
+  Status VARCHAR(20) NOT NULL,
+  PasswordHash VARCHAR(255) NOT NULL,
+  CreatedAt DATETIME NOT NULL
+);
+
+CREATE TABLE Reviews (
+  Id VARCHAR(50) PRIMARY KEY,
+  ProductId VARCHAR(50) NOT NULL,
+  UserId VARCHAR(50) NULL,
+  Author NVARCHAR(255) NOT NULL,
+  Rating INT NOT NULL,
+  Comment NVARCHAR(1000) NOT NULL,
+  Status VARCHAR(20) NOT NULL DEFAULT 'pending',
+  CreatedAt DATETIME NOT NULL,
+  FOREIGN KEY (ProductId) REFERENCES Products(Id),
+  FOREIGN KEY (UserId) REFERENCES Users(Id)
+);
+
+CREATE TABLE Orders (
+  Id VARCHAR(50) PRIMARY KEY,
+  UserId VARCHAR(50) NULL,
+  CustomerName NVARCHAR(255) NOT NULL,
+  CustomerEmail VARCHAR(255) NULL,
+  Phone VARCHAR(30) NOT NULL,
+  Address NVARCHAR(500) NOT NULL,
+  PaymentMethod VARCHAR(20) NOT NULL,
+  Status VARCHAR(20) NOT NULL,
+  Total DECIMAL(18, 0) NOT NULL,
+  Note NVARCHAR(1000) NULL,
+  ItemsJson NVARCHAR(MAX) NOT NULL DEFAULT N'[]',
+  StatusTimelineJson NVARCHAR(MAX) NULL,
+  CreatedAt DATETIME NOT NULL,
+  FOREIGN KEY (UserId) REFERENCES Users(Id)
+);

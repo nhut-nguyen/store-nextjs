@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hướng dẫn build GearHub Store trên Windows</title>
+    <style>
+      :root {
+        --bg: #f7f8fa;
+        --surface: #ffffff;
+        --text: #1f2937;
+        --muted: #6b7280;
+        --border: #dbe2ea;
+        --accent: #ea580c;
+        --accent-soft: #fff1e8;
+        --teal: #0f766e;
+        --code: #0f172a;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(180deg, #f8fafc 0%, #eef4f3 100%);
+        color: var(--text);
+        line-height: 1.6;
+      }
+
+      .page {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 40px 20px 64px;
+      }
+
+      .hero,
+      .card {
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid rgba(219, 226, 234, 0.9);
+        border-radius: 20px;
+        box-shadow: 0 18px 50px rgba(15, 23, 42, 0.06);
+        backdrop-filter: blur(12px);
+      }
+
+      .hero {
+        padding: 32px;
+        margin-bottom: 24px;
+      }
+
+      .hero .eyebrow {
+        display: inline-block;
+        margin: 0 0 12px;
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: var(--accent-soft);
+        color: var(--accent);
+        font-weight: 700;
+        font-size: 13px;
+        letter-spacing: 0.02em;
+      }
+
+      h1,
+      h2,
+      h3 {
+        margin: 0 0 12px;
+        line-height: 1.25;
+      }
+
+      h1 {
+        font-size: 38px;
+      }
+
+      h2 {
+        font-size: 26px;
+        margin-top: 28px;
+      }
+
+      h3 {
+        font-size: 20px;
+        margin-top: 18px;
+      }
+
+      p,
+      li {
+        font-size: 16px;
+      }
+
+      .muted {
+        color: var(--muted);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 16px;
+      }
+
+      .card {
+        padding: 24px;
+        margin-bottom: 20px;
+      }
+
+      .card strong {
+        color: var(--teal);
+      }
+
+      ul,
+      ol {
+        margin: 8px 0 16px 22px;
+      }
+
+      code,
+      pre {
+        font-family: Consolas, "Courier New", monospace;
+      }
+
+      code {
+        background: #eef2ff;
+        color: #312e81;
+        padding: 2px 6px;
+        border-radius: 6px;
+        font-size: 0.95em;
+      }
+
+      pre {
+        margin: 14px 0 18px;
+        padding: 18px;
+        border-radius: 16px;
+        overflow-x: auto;
+        background: var(--code);
+        color: #e5eef9;
+        border: 1px solid #1e293b;
+      }
+
+      .note,
+      .warn,
+      .success {
+        padding: 14px 16px;
+        border-radius: 14px;
+        margin: 14px 0;
+      }
+
+      .note {
+        background: #ecfeff;
+        border: 1px solid #a5f3fc;
+      }
+
+      .warn {
+        background: #fff7ed;
+        border: 1px solid #fdba74;
+      }
+
+      .success {
+        background: #ecfdf5;
+        border: 1px solid #86efac;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 12px;
+      }
+
+      th,
+      td {
+        text-align: left;
+        vertical-align: top;
+        padding: 12px 10px;
+        border-bottom: 1px solid var(--border);
+      }
+
+      th {
+        font-size: 14px;
+        color: var(--muted);
+      }
+
+      .footer {
+        margin-top: 28px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      @media (max-width: 640px) {
+        h1 {
+          font-size: 30px;
+        }
+
+        .hero,
+        .card {
+          padding: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <section class="hero">
+        <p class="eyebrow">GearHub Store</p>
+        <h1>Hướng dẫn kỹ thuật build và chạy dự án trên máy PC Windows</h1>
+        <p class="muted">
+          Tài liệu này dùng cho dự án Next.js bán máy tính, laptop, điện thoại và phụ kiện. Nội dung bám đúng
+          cấu trúc hiện tại của project, bao gồm cấu hình SQL Server, build production và các bước kiểm tra sau
+          khi deploy.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2>1. Mục tiêu</h2>
+        <p>Đưa project từ môi trường phát triển sang máy Windows để:</p>
+        <ul>
+          <li>cài đủ môi trường Node.js</li>
+          <li>cấu hình kết nối SQL Server</li>
+          <li>khởi tạo database <code>PRO_STORE_NEXTJS</code></li>
+          <li>build ứng dụng production</li>
+          <li>chạy ứng dụng ổn định trên Windows</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>2. Yêu cầu môi trường</h2>
+        <div class="grid">
+          <div>
+            <h3>Phần mềm bắt buộc</h3>
+            <ul>
+              <li>Windows 10 hoặc Windows 11</li>
+              <li>Node.js 20 LTS hoặc mới hơn</li>
+              <li>npm đi kèm Node.js</li>
+              <li>SQL Server đang chạy và cho phép truy cập qua TCP/IP</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Khuyến nghị</h3>
+            <ul>
+              <li>Git for Windows</li>
+              <li>PowerShell hoặc Windows Terminal</li>
+              <li>Visual Studio Code</li>
+              <li>SQL Server Management Studio để kiểm tra DB</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="note">
+          <strong>IP Database hiện tại:</strong> <code>192.168.1.116</code><br />
+          <strong>Database mặc định:</strong> <code>PRO_STORE_NEXTJS</code><br />
+          <strong>User mặc định theo project:</strong> <code>sa</code>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>3. Chuẩn bị source code trên Windows</h2>
+        <ol>
+          <li>Copy toàn bộ source code dự án sang máy Windows hoặc clone từ repository.</li>
+          <li>Mở thư mục dự án bằng PowerShell hoặc Windows Terminal.</li>
+          <li>Kiểm tra Node.js và npm:</li>
+        </ol>
+
+        <pre><code>node -v
+npm -v</code></pre>
+
+        <p>Nếu chưa có Node.js, cài từ bản LTS chính thức rồi mở lại terminal.</p>
+      </section>
+
+      <section class="card">
+        <h2>4. Cài dependencies</h2>
+        <pre><code>npm install</code></pre>
+
+        <p>
+          Lệnh này sẽ cài các package cần thiết như <code>next</code>, <code>react</code>, <code>mssql</code>,
+          <code>zod</code>, <code>recharts</code>.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2>5. Tạo file cấu hình môi trường</h2>
+        <p>Tạo file <code>.env.local</code> ở thư mục gốc dự án với nội dung:</p>
+
+        <pre><code>SQLSERVER_USER=sa
+SQLSERVER_PASSWORD=sa@123
+SQLSERVER_HOST=192.168.1.116
+SQLSERVER_PORT=1433
+SQLSERVER_DATABASE=PRO_STORE_NEXTJS
+SQLSERVER_ENCRYPT=false
+NEXT_PUBLIC_APP_NAME=GearHub</code></pre>
+
+        <div class="warn">
+          <strong>Lưu ý:</strong> nếu password của SQL Server trên máy Windows khác <code>sa@123</code> thì phải
+          thay lại đúng giá trị thực tế.
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>6. Chuẩn bị SQL Server</h2>
+        <h3>6.1. Điều kiện cần</h3>
+        <ul>
+          <li>SQL Server phải bật chế độ SQL Authentication.</li>
+          <li>Tài khoản <code>sa</code> phải đăng nhập được.</li>
+          <li>TCP/IP phải được bật trong SQL Server Configuration Manager.</li>
+          <li>Port <code>1433</code> phải mở hoặc đúng port đang dùng.</li>
+        </ul>
+
+        <h3>6.2. Kiểm tra nhanh kết nối</h3>
+        <p>Có thể dùng SSMS đăng nhập với:</p>
+        <ul>
+          <li>Server: <code>192.168.1.116</code></li>
+          <li>Authentication: <code>SQL Server Authentication</code></li>
+          <li>Login: <code>sa</code></li>
+          <li>Password: mật khẩu thực tế</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>7. Khởi tạo database cho project</h2>
+        <p>Dự án có sẵn script tạo lại schema và seed dữ liệu:</p>
+
+        <pre><code>npm run db:init</code></pre>
+
+        <p>Lệnh này sẽ:</p>
+        <ul>
+          <li>tạo database <code>PRO_STORE_NEXTJS</code> nếu chưa tồn tại</li>
+          <li>đọc [database/schema.sql] và [database/seed.sql]</li>
+          <li>xóa bảng cũ rồi dựng lại toàn bộ schema</li>
+          <li>nạp dữ liệu seed ban đầu</li>
+        </ul>
+
+        <div class="warn">
+          <strong>Cảnh báo:</strong> <code>npm run db:init</code> là lệnh reset dữ liệu theo seed. Không dùng trên
+          môi trường đã có dữ liệu thật nếu bạn chưa backup.
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>8. Chạy ở chế độ development</h2>
+        <pre><code>npm run dev</code></pre>
+
+        <p>Sau khi chạy thành công, truy cập:</p>
+        <ul>
+          <li><code>http://localhost:3000</code></li>
+        </ul>
+
+        <p>Nếu muốn kiểm tra nhanh:</p>
+        <ul>
+          <li>Trang chủ storefront</li>
+          <li>Trang sản phẩm <code>/products</code></li>
+          <li>Trang admin <code>/admin</code></li>
+          <li>API danh mục <code>/api/categories</code></li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>9. Build production trên Windows</h2>
+        <h3>9.1. Build</h3>
+        <pre><code>npm run build</code></pre>
+
+        <h3>9.2. Chạy production</h3>
+        <pre><code>npm run start</code></pre>
+
+        <p>Mặc định ứng dụng sẽ chạy trên port <code>3000</code>.</p>
+
+        <h3>9.3. Nếu cần đổi port</h3>
+        <p>PowerShell:</p>
+        <pre><code>$env:PORT=3001
+npm run start</code></pre>
+
+        <p>Command Prompt:</p>
+        <pre><code>set PORT=3001
+npm run start</code></pre>
+      </section>
+
+      <section class="card">
+        <h2>10. Checklist kiểm tra sau build</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Hạng mục</th>
+              <th>Cách kiểm tra</th>
+              <th>Kết quả mong đợi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Server Next.js</td>
+              <td>Mở <code>http://localhost:3000</code></td>
+              <td>Trang chủ tải thành công</td>
+            </tr>
+            <tr>
+              <td>Kết nối database</td>
+              <td>Xem danh mục, sản phẩm, admin categories</td>
+              <td>Dữ liệu trả về bình thường, không lỗi 500</td>
+            </tr>
+            <tr>
+              <td>API category</td>
+              <td>Mở <code>/api/categories</code> và <code>/api/admin/categories</code></td>
+              <td>JSON hợp lệ</td>
+            </tr>
+            <tr>
+              <td>Admin categories</td>
+              <td>Tạo, sửa, ẩn/hiện, xóa danh mục</td>
+              <td>Hoạt động đúng rule nghiệp vụ</td>
+            </tr>
+            <tr>
+              <td>Trang sản phẩm</td>
+              <td>Vào <code>/products</code></td>
+              <td>Không lỗi filter/category</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="card">
+        <h2>11. Các lỗi thường gặp và cách xử lý</h2>
+
+        <h3>Lỗi không kết nối được SQL Server</h3>
+        <ul>
+          <li>Kiểm tra lại <code>SQLSERVER_HOST</code>, <code>SQLSERVER_PORT</code>, user và password.</li>
+          <li>Đảm bảo SQL Server đã bật TCP/IP.</li>
+          <li>Kiểm tra firewall Windows có chặn port 1433 không.</li>
+        </ul>
+
+        <h3>Lỗi khi chạy <code>npm run db:init</code></h3>
+        <ul>
+          <li>Đảm bảo tài khoản có quyền tạo database.</li>
+          <li>Kiểm tra file <code>.env.local</code> đã đúng chưa.</li>
+          <li>Kiểm tra SQL Server có đang chạy không.</li>
+        </ul>
+
+        <h3>Lỗi khi chạy <code>npm run build</code></h3>
+        <ul>
+          <li>Chạy lại <code>npm install</code>.</li>
+          <li>Xóa thư mục <code>.next</code> rồi build lại.</li>
+          <li>Kiểm tra version Node.js, nên dùng Node.js 20 LTS trở lên.</li>
+        </ul>
+
+        <h3>App lên nhưng không có dữ liệu</h3>
+        <ul>
+          <li>Chạy lại <code>npm run db:init</code>.</li>
+          <li>Kiểm tra kết nối DB có trỏ đúng <code>PRO_STORE_NEXTJS</code> không.</li>
+          <li>Nếu SQL Server chưa sẵn sàng, app có thể fallback sang dữ liệu mẫu trong <code>lib/data.ts</code>.</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>12. Khuyến nghị khi bàn giao cho máy Windows</h2>
+        <ul>
+          <li>Khóa version Node.js dùng chung giữa các máy triển khai.</li>
+          <li>Không commit file <code>.env.local</code> chứa thông tin thật lên repository công khai.</li>
+          <li>Nếu chạy production lâu dài, nên dùng reverse proxy hoặc service manager.</li>
+          <li>Nếu database là máy riêng trong LAN, nên kiểm tra ping và quyền truy cập trước khi build.</li>
+        </ul>
+
+        <div class="success">
+          <strong>Quy trình khuyến nghị ngắn gọn:</strong><br />
+          <code>npm install</code> → tạo <code>.env.local</code> → <code>npm run db:init</code> →
+          <code>npm run build</code> → <code>npm run start</code>
+        </div>
+      </section>
+
+      <p class="footer">
+        File này được tạo riêng cho project <strong>GearHub Store</strong> để hỗ trợ build/chạy trên máy Windows.
+      </p>
+    </main>
+  </body>
+</html>

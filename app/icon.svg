@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="gearhubGradient" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#ff7a18" />
+      <stop offset="100%" stop-color="#2563eb" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="18" fill="url(#gearhubGradient)" />
+  <path
+    d="M18 20h12c7.2 0 12 4.6 12 11.3S37.2 43 30 43H18V20Zm11.2 17.1c4 0 6.7-2.3 6.7-5.8s-2.7-5.8-6.7-5.8H24v11.6h5.2Z"
+    fill="#fff"
+  />
+  <path d="M39 18h7v28h-7z" fill="#fff" opacity=".94" />
+</svg>
